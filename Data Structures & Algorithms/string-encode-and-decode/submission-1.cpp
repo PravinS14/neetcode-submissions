@@ -2,25 +2,27 @@ class Solution {
 public:
 
     string encode(vector<string>& strs) {
-        string enc;
-        for(auto &str : strs){
-            enc += str+".";
-        }
-        return enc;
+    string enc;
+    for (string s : strs) {
+        enc += s + "|";
     }
+    return enc;
+}
 
-    vector<string> decode(string s) {
-        vector<string> dec;
-        string temp;
-        for(int i = 0; i < s.size(); i++){
-            if(s[i] != '.'){
-                temp += s[i];
-            }
-            else{
-                dec.push_back(temp);
-                temp.erase();
-            }
+vector<string> decode(string s) {
+    vector<string> dec;
+    int i = 0;
+    string sz;
+    for (char c : s) {
+        if (c != '|') {
+            sz += c;
         }
-    return dec;    
+        else if (c == '|') {
+            dec.insert(dec.begin() + i, sz);
+            sz.erase();
+            i++;
+        }
     }
+    return dec;
+}
 };
